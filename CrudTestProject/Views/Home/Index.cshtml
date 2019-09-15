@@ -1,0 +1,59 @@
+﻿@model List<CustomerVM>
+
+@if (Model.Count() > 0)
+{
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-2">
+				Name
+			</div>
+			<div class="col-lg-2">
+				Email
+			</div>
+			<div class="col-lg-2">
+				Phone Number
+			</div>
+			<div class="col-lg-1">
+				Bank Account
+			</div>
+			<div class="col-lg-1">
+				Date Of Birth
+			</div>
+			<div class="col-lg-2">
+				Action
+			</div>
+		</div>
+		@foreach (var item in Model)
+		{
+			<hr />
+			<div class="row">
+				<div class="col-lg-2">
+					@(item.FirstName + " " + item.LastName)
+				</div>
+				<div class="col-lg-2">
+					@item.Email
+				</div>
+				<div class="col-lg-2">
+					+ @(item.CountryCode + "-" + item.PhoneNumber)
+				</div>
+				<div class="col-lg-1">
+					@item.BankAccountNumber
+				</div>
+				<div class="col-lg-1">
+					@item.DateOfBirth.ToString("yyyy-MM-dd")
+				</div>
+				<div class="col-lg-2">
+					<a href="~/Home/Edit/@item.Id">Edit</a> | 
+					<a href="~/Home/Delete/@item.Id">Delete</a>
+
+				</div>
+			</div>
+		}
+	</div>
+}
+else
+{
+<h1>
+	:(
+</h1>
+}

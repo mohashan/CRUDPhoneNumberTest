@@ -1,0 +1,160 @@
+﻿@model CrudTestProject.Models.CustomerVM
+<link rel="stylesheet" href="~/css/intlTelInput.css">
+<div class="Container">
+	<form action="~/Home/Create" method="post" autocomplete="off">
+
+
+		<div class="row">
+			<div>
+				@Html.DisplayNameFor(c => c.FirstName)
+			</div>
+			<div>
+				@Html.TextBoxFor(c => c.FirstName, new { @class = "form-control" })
+				@Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="row">
+			<div>
+				@Html.DisplayNameFor(c => c.LastName)
+			</div>
+			<div>
+				@Html.TextBoxFor(c => c.LastName, new { @class = "form-control" })
+				@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="row">
+			<div>
+				@Html.DisplayNameFor(c => c.Email)
+			</div>
+			<div>
+				<input type="email" id="Email" name="Email" class="form-control" required />
+				@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="row">
+			<div>
+				@Html.DisplayNameFor(c => c.DateOfBirth)
+			</div>
+			<div>
+				<input type="date" id="DateOfBirth" name="DateOfBirth" class="form-control"  required/>
+				@Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+				<span id="DOB-error-msg" class="text-danger hide">You are so old :|</span>
+
+			</div>
+		</div>
+		<div class="row">
+			<div>
+				@Html.DisplayNameFor(c => c.BankAccountNumber)
+			</div>
+			<div>
+				<input type="text" id="BankAccountNumber" name="BankAccountNumber" class="form-control"  required/>
+				@Html.ValidationMessageFor(model => model.BankAccountNumber, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="row">
+			<div>
+				Phone Number
+			</div>
+			<div>
+				<input type="tel" name="PhoneNumber" id="PhoneNumber" required>
+				@Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+				<span id="phone-error-msg" class="text-danger hide">Phone Number is invalid</span>
+			</div>
+		</div>
+
+		<button type="submit" id="cmdSubmit">Submit</button>
+
+
+	</form>
+</div>
+
+
+<script src="~/js/intlTelInput.js"></script>
+<script src="~/js/jqueryval.js"></script>
+<script src="~/js/jquery.validte.unobtrusive.js"></script>
+<script>
+	$(document).ready(function () {
+		var input = document.querySelector("#PhoneNumber"),
+			phoneerrorMsg = document.querySelector("#phone-error-msg"),
+			DOBerrorMsg = document.querySelector("#DOB-error-msg");
+
+		// here, the index maps to the error code returned from getValidationError - see readme
+		var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+		// initialise plugin
+		var iti = window.intlTelInput(input, {
+			utilsScript: "../js/utils.js?1562189064761"
+		});
+
+		var reset = function () {
+			input.classList.remove("error");
+			phoneerrorMsg.innerHTML = "";
+			DOBerrorMsg.innerHTML = "";
+			phoneerrorMsg.classList.add("hide");
+			DOBerrorMsg.classList.add("hide");
+		};
+
+		// on blur: validate
+		input.addEventListener('blur', function () {
+			reset();
+			if (input.value.trim()) {
+				if (!iti.isValidNumber()) {
+
+					input.classList.add("error");
+					var errorCode = iti.getValidationError();
+					phoneerrorMsg.innerHTML = errorMap[errorCode] || 'Invalid Number';
+					phoneerrorMsg.classList.remove("hide");
+				
+				}
+			}
+			if ($('#DateOfBirth').value) {
+				if (new Date('1900/01/01') > new Date($('#DateOfBirth').val())) {
+
+					$('#DateOfBirth').classList.add("error");
+					
+					DOBerrorMsg.innerHTML = 'Invalid Date Of Birth';
+					DOBerrorMsg.classList.remove("hide");
+				
+				}
+			}
+		});
+
+		// on keyup / change flag: reset
+		input.addEventListener('change', reset);
+		input.addEventListener('keyup', reset);
+
+		
+
+
+
+		$("#cmdSubmit").click(function (event) {
+			event.preventDefault();
+			if ($("form").valid() &&
+				iti.isValidNumber()) {
+
+				var formData = {
+					CountryCode:iti.getSelectedCountryData().dialCode,
+					CountryISO:iti.getSelectedCountryData().iso2,
+					PhoneNumber: $("#PhoneNumber").val().replace(/\D/g,''),
+					Email: $("#Email").val(),
+					FirstName: $("#FirstName").val(),
+					LastName: $("#LastName").val(),
+					BankAccountNumber: $("#BankAccountNumber").val(),
+					DateOfBirth: $("#DateOfBirth").val()
+				}
+				$.post("/Home/Create", formData, function (resp) {
+					if (resp == 'true') {
+						window.location.href = '/Home/Index';
+						return;
+					}
+					else {
+						alert(resp)
+						return;
+					}
+				});
+			}
+
+		});
+	});
+
+</script>
