@@ -47,8 +47,9 @@ namespace CrudTestProject.Controllers
 			{
 				if (string.IsNullOrEmpty(Model.CountryCode) || string.IsNullOrEmpty(Model.CountryISO))
 					throw new Exception("Invalid Number");
-				PhoneNumber swissNumberProto = phoneUtil.Parse("+" + Model.CountryCode + Model.PhoneNumber, Model.CountryISO.ToUpper());
-				if (phoneUtil.IsValidNumber(new PhoneNumber()))
+				Model.PhoneNumber = Convert.ToUInt64(Model.PhoneNumber).ToString();
+				PhoneNumber phoneNo = phoneUtil.Parse(Model.PhoneNumber, Model.CountryISO.ToUpper());
+				if (!phoneUtil.IsValidNumber(phoneNo))
 					throw new Exception("Number is invalid");
 			}
 			catch (NumberParseException e)
@@ -95,8 +96,8 @@ namespace CrudTestProject.Controllers
 				if (string.IsNullOrEmpty(Model.CountryCode) || string.IsNullOrEmpty(Model.CountryISO))
 					throw new Exception("Invalid Number");
 				Model.PhoneNumber = Convert.ToUInt64(Model.PhoneNumber).ToString();
-				PhoneNumber swissNumberProto = phoneUtil.Parse("+" + Model.CountryCode + Model.PhoneNumber, Model.CountryISO.ToUpper());
-				if (phoneUtil.IsValidNumber(new PhoneNumber()))
+				PhoneNumber phoneNo = phoneUtil.Parse(Model.PhoneNumber, Model.CountryISO.ToUpper());
+				if (!phoneUtil.IsValidNumber(phoneNo))
 					throw new Exception("Number is invalid");
 			}
 			catch (NumberParseException e)

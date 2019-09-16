@@ -30,3 +30,4 @@ D:\Programming\Asp.net Core\Crud test project\CrudTestProject\CrudTestProject\ob
 D:\Programming\Asp.net Core\Crud test project\CrudTestProject\CrudTestProject\obj\Debug\netcoreapp2.2\Razor\Views\Shared\__Layout.g.cshtml.cs
 D:\Programming\Asp.net Core\Crud test project\CrudTestProject\CrudTestProject\obj\Debug\netcoreapp2.2\Razor\Views\Home\Create.g.cshtml.cs
 D:\Programming\Asp.net Core\Crud test project\CrudTestProject\CrudTestProject\obj\Debug\netcoreapp2.2\Razor\Views\Home\Edit.g.cshtml.cs
+D:\Programming\Asp.net Core\Crud test project\CrudTestProject\CrudTestProject\obj\Debug\netcoreapp2.2\Razor\Views\Home\_Container.g.cshtml.cs

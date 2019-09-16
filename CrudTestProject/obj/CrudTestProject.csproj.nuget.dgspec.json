@@ -80,6 +80,10 @@
               "version": "[2.2.0, )",
               "autoReferenced": true
             },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[2.2.3, )"
+            },
             "libphonenumber-csharp": {
               "target": "Package",
               "version": "[8.10.17, )"

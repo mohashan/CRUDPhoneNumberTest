@@ -1,72 +1,72 @@
 ﻿@model CrudTestProject.Models.CustomerVM
 <link rel="stylesheet" href="~/css/intlTelInput.css">
-<div class="Container">
+
 	<form action="~/Home/Create" method="post" autocomplete="off">
+		<div class="Container">
 
+			<div class="row">
+				<div>
+					@Html.DisplayNameFor(c => c.FirstName)
+				</div>
+				<div>
+					@Html.TextBoxFor(c => c.FirstName, new { @class = "form-control" })
+					@Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div>
+					@Html.DisplayNameFor(c => c.LastName)
+				</div>
+				<div>
+					@Html.TextBoxFor(c => c.LastName, new { @class = "form-control" })
+					@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div>
+					@Html.DisplayNameFor(c => c.Email)
+				</div>
+				<div>
+					<input type="email" id="Email" name="Email" class="form-control" required />
+					@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div>
+					@Html.DisplayNameFor(c => c.DateOfBirth)
+				</div>
+				<div>
+					<input type="date" id="DateOfBirth" name="DateOfBirth" class="form-control" required />
+					@Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+					<span id="DOB-error-msg" class="text-danger hide">You are so old :|</span>
 
-		<div class="row">
-			<div>
-				@Html.DisplayNameFor(c => c.FirstName)
+				</div>
 			</div>
-			<div>
-				@Html.TextBoxFor(c => c.FirstName, new { @class = "form-control" })
-				@Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+			<div class="row">
+				<div>
+					@Html.DisplayNameFor(c => c.BankAccountNumber)
+				</div>
+				<div>
+					<input type="text" id="BankAccountNumber" name="BankAccountNumber" class="form-control" required />
+					@Html.ValidationMessageFor(model => model.BankAccountNumber, "", new { @class = "text-danger" })
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div>
-				@Html.DisplayNameFor(c => c.LastName)
+			<div class="row">
+				<div>
+					Phone Number
+				</div>
+				<div>
+					<input type="tel" name="PhoneNumber" id="PhoneNumber" required>
+					@Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+					<span id="phone-error-msg" class="text-danger hide">Phone Number is invalid</span>
+				</div>
 			</div>
-			<div>
-				@Html.TextBoxFor(c => c.LastName, new { @class = "form-control" })
-				@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="row">
-			<div>
-				@Html.DisplayNameFor(c => c.Email)
-			</div>
-			<div>
-				<input type="email" id="Email" name="Email" class="form-control" required />
-				@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="row">
-			<div>
-				@Html.DisplayNameFor(c => c.DateOfBirth)
-			</div>
-			<div>
-				<input type="date" id="DateOfBirth" name="DateOfBirth" class="form-control"  required/>
-				@Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
-				<span id="DOB-error-msg" class="text-danger hide">You are so old :|</span>
 
-			</div>
-		</div>
-		<div class="row">
-			<div>
-				@Html.DisplayNameFor(c => c.BankAccountNumber)
-			</div>
-			<div>
-				<input type="text" id="BankAccountNumber" name="BankAccountNumber" class="form-control"  required/>
-				@Html.ValidationMessageFor(model => model.BankAccountNumber, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="row">
-			<div>
-				Phone Number
-			</div>
-			<div>
-				<input type="tel" name="PhoneNumber" id="PhoneNumber" required>
-				@Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
-				<span id="phone-error-msg" class="text-danger hide">Phone Number is invalid</span>
-			</div>
+			<button type="submit" id="cmdSubmit">Submit</button>
 		</div>
 
-		<button type="submit" id="cmdSubmit">Submit</button>
+</form>
 
-
-	</form>
-</div>
 
 
 <script src="~/js/intlTelInput.js"></script>
